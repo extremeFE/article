@@ -8,16 +8,29 @@
 
 ### Math객체는 생성자가 아니다
 
-Math객체는 다른 글로벌 객체외 다르게 생성자가 아니다. 다시말해, new 연산자를 사용하여 Math객체를 만들 수 없다.
-Math객체의 모든 메소드(methods)와 프로퍼티(properties)는 static이다.
+Math객체는 다른 글로벌 객체외 다르게 생성자가 아니다. 다시말해, new 연산자를 사용하여 객체를 만들 수 없다.
+하지만 Math객체의 모든 메소드(methods)와 프로퍼티(properties)는 static이기 때문에, Math객체에 바로 접근하여 사용 가능하다. 
+다음은 Date와 Math의 사용 방법의 차이를 보여주는 예제이다.
+
+```javascript
+// Date
+var date = new Date();
+date.getTime();
+
+// Math
+var absValue = Math.abs(-20);
+
+```
+
 Math객체가 제공하는 프로퍼티는 ```Math.PI```, ```Math.E```와 같이 수학식에서 사용하는 상수들로 구성되어있다.<br>
+
 자세한 내용은 [MDN Math](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math),
 [MSDN Math](https://msdn.microsoft.com/ko-kr/library/b272f386(v=vs.94).aspx)등의 문서를 참조하길 바란다.
 <br><br>
 
 ### 삼각연산에서의 각도
 
-Math 객체는 다양한 삼각함수들(Math.sin, Math.cos,...)을 지원한다. 이들을 사용하면 파이의 호의 좌표나 회전된 상자의 높이 등을 계산할 수 있다.
+Math 객체는 다양한 삼각함수들(Math.sin, Math.cos,...)을 지원한다. 이들을 사용하면 파이 그래프 호의 좌표나 회전된 상자의 높이 등을 계산할 수 있다.
 이들은 공통적으로 각도 값을 인자로 받게 되는데, 이때 입력하는 각도는 우리가 흔히 사용하는 도(degree)가 아닌 라디안(radian) 값을 필요로 한다.
 
 > ##### 도(degree)와 라디안(radian)
@@ -49,7 +62,7 @@ Math객체의 삼각함수들을 사용하려면 도(degree)가 아닌 라디안
 
 ### 소수점 이하 버리기
 
-Math 객체의 라운딩 함수(```Math.ceil```, ```Math.round```, ```Math.floor```)들은 수학의 처리방식을 따른다.<br>
+Math 객체의 라운딩 함수(```Math.ceil```, ```Math.round```, ```Math.floor```)들은 당연한 이야기지만 수학의 처리방식을 따른다.<br>
 예를 들어, ```Math.floor```(버림)는 양수 1.12대해서는 1 이라는 결과값을 -1.12에 대해서는 -2라는 결과값을 주게 된다.
 이는 ```Math.ceil```, ```Math.round```에도 동일하게 적용된다.
 
@@ -110,6 +123,7 @@ parseInt(num, 10) // 1;
   * '1e+21' --> 1
 <br><br>
 
+
 ### 소수점 n번째 자리까지 표시하기
 
 개발을 하다보면 숫자형을 유지한채 소수점 n번째 자리까지만 소수점을 표시해야 하는 경우가 있는데,<br>
@@ -132,6 +146,10 @@ console.log(truncateDecimalUntilLimit(1.4142, 2)); // 1.41
 console.log(parseFloat(1.4142.toFixed(2))); // 1.41
 ```
 
+Math객체를 활용하는것이 형변환을 하지 않기 때문에, toFixed를 사용하는 것 보다 성능면에서는 이득을 준다.
+다음은 두가지 방법의 성능 테스트 예제다.<br>
+http://jsperf.com/truncate-decimal-until-limit
+
 ### 배열의 min, max 구하기
 
 자바스크립트에서 배열을 사용하다보면 배열중에 최대값이나 최소값을 얻고 싶은 경우가 있다.<br>
@@ -147,7 +165,6 @@ console.log(max) // 10
 ```
 
 이 두 함수를 apply를 이용하여 호출하면, 배열의 min, max를 구할 수 있다.
-
 ```javascript
 
 var arr = [10, 3, 2, 8, 4, 6, 5],
@@ -173,31 +190,31 @@ getRandom(1, 10); // 1 ~ 10사이의 random 숫자 반환
 ```
 
 
-### es2015에서 추가된 Math 함수
-es2015에서는 삼각, 산술등의 연산과 숫자 변환 및 숫자에서 정보를 추출하는 메소드들이 추가됐다.<br>
-그 중에 대표적인 몇가지에 대해 알아보도록 하겠다.
 
-##### Math.trunc
-위의 '소수점 이하 버리기'에서 언급했듯이 ```Math.trunc```는 가수부를 덜어낸 정수부 숫자만 반환한다.
-```javascript
-console.log(Math.trunc(3.14159)); // 3
-console.log(Math.trunc(-3.14159)); // -3
-```
 
-##### Math.sign
-```Math.sign```은 입력된 숫자가 양수인지 음수인지 아니면 0인지를 판별하여 반환한다.
-```javascript
-console.log(Math.sign(3.14159)); // 1
-console.log(Math.sign(-3.14159)); // -1
-console.log(Math.sign(0)); // 0
-```
+### 결론
 
-##### Math.fround
-```Math.fround```는 의도적으로 부동소수점을 생성할 수 있게 해준다.
-```javascript
-console.log(Math.fround(1.137)); // 1.1369999647140503
-```
-```Math.fround```는 32비트 부동 소수점 값으로 반올림 한다.
+지금까지 Math객체와 몇가지 활용 방법에 대해 이야기해 보았다. 요약하면 다음과 같다.
+
+* Math객체는 생성자가 아니며, Math객체의 메소드와 프로퍼티는 static이다.
+* Math객체에서 제공하는 메소드 들을 사용할 때에는 사용방법을 정확하게 알고 사용해야 한다.
+* 숫자형을 다룰 때에는 형변환이 필요없는 Math객체를 활용하는 것이 좋다.
+* Math객체를 활용하면 자주사용하는 기능에 대해 간단하게 구현할 수 있다.
+
+여기에 정리된 내용이, Math객체를 사용하는 분들에게 조금이라도 도움이 되길 바란다.
+
+<br><br>
+
+
+##### 참고
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+* https://msdn.microsoft.com/ko-kr/library/b272f386(v=vs.94).aspx
+* http://www.w3schools.com/jsref/jsref_obj_math.asp
+* https://pawelgrzybek.com/rounding-and-truncating-numbers-in-javascript/
+* http://darkpgmr.tistory.com/26
+* https://ko.wikipedia.org/wiki/%EB%9D%BC%EB%94%94%EC%95%88
+* 나라얀 프루스티, ECMAScript 6 길들이기(2106)
+
 
 
 이 외에도 새롭게 추가된 메소드들이 궁금하다면 [MDN Math](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math)를 참고하길 바란다.
