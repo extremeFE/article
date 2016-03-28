@@ -35,7 +35,7 @@ Math 객체는 다양한 삼각함수들(Math.sin, Math.cos,...)을 지원한다
 
 > ##### 도(degree)와 라디안(radian)
 > 도는 우리가 흔하게 사용하는 각도를 말하며 원을 360등분한 60분법을 사용한다.<br>
-> 라디안은 원의 반지름과 같은 길이를 갖는 호에 대응하는 중심각의 크기를 나타내는 호도법을 사용한다.<br><br>
+> 반면에, 라디안은 반지름과 호의 길이가 같을 때의 중심각의 크기를 나타내는 호도법을 사용한다.<br><br>
 >![degree](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/%C4%90%E1%BB%99_%28g%C3%B3c%29-Degree_%28angle%29.jpg/220px-%C4%90%E1%BB%99_%28g%C3%B3c%29-Degree_%28angle%29.jpg)
 >  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
 >![radian](https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Angle_radian.svg/200px-Angle_radian.svg.png)<br>
@@ -89,7 +89,7 @@ function truncateDecimal (value) {
     if (value < 0) {
         int = Math.ceil(value);
     } else {
-        int = Math.ceil(value);
+        int = Math.floor(value);
     }
     
     return int;
@@ -115,7 +115,7 @@ console.log(parseInt(-3.14159, 10)); // -3
 
 ```javascript
 var num = 1000000000000000000000;
-parseInt(num, 10) // 1;
+console.log(parseInt(num, 10)) // 1;
 ```
 1. parseInt 과정에서 num값이 문자열로 변함
   * 1000000000000000000000 --> '1e+21'
@@ -146,9 +146,11 @@ console.log(truncateDecimalUntilLimit(1.4142, 2)); // 1.41
 console.log(parseFloat(1.4142.toFixed(2))); // 1.41
 ```
 
-Math객체를 활용하는것이 형변환을 하지 않기 때문에, toFixed를 사용하는 것 보다 성능면에서는 이득을 준다.
+Math객체를 활용하면 형변환을 하지 않기 때문에, toFixed를 사용하는 것 보다 성능면에서 이득을 준다.
 다음은 두가지 방법의 성능 테스트 예제다.<br>
 http://jsperf.com/truncate-decimal-until-limit
+<br><br>
+
 
 ### 배열의 min, max 구하기
 
@@ -174,11 +176,12 @@ var arr = [10, 3, 2, 8, 4, 6, 5],
 console.log(min) // 2
 console.log(max) // 10
 ```
+<br>
 
 ### 원하는 범위의 랜덤 숫자 구하기
 
 ```Math.random```이라는 함수는 0 ~ 1 사이의 숫자를 랜덤하게 반환한다.<br>
-```Math.random```과 ```Math.floor``를 이용하면, 원하는 범위의 랜덤 숫자를 구할 수 있다.
+```Math.random```과 ```Math.floor```를 이용하면, 원하는 범위의 랜덤 숫자를 구할 수 있다.
 
 ```javascript
 
@@ -186,10 +189,9 @@ function getRandom(start, end) {
     return start + (Math.floor(Math.random() * (end - start + 1)));
 }
 
-getRandom(1, 10); // 1 ~ 10사이의 random 숫자 반환
+console.log(getRandom(1, 10)); // 1 ~ 10사이의 random 숫자 반환
 ```
-
-
+<br>
 
 
 ### 결론
@@ -214,10 +216,3 @@ getRandom(1, 10); // 1 ~ 10사이의 random 숫자 반환
 * http://darkpgmr.tistory.com/26
 * https://ko.wikipedia.org/wiki/%EB%9D%BC%EB%94%94%EC%95%88
 * 나라얀 프루스티, ECMAScript 6 길들이기(2106)
-
-
-
-이 외에도 새롭게 추가된 메소드들이 궁금하다면 [MDN Math](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math)를 참고하길 바란다.
-
-
-
