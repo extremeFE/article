@@ -127,14 +127,14 @@ parseInt(num, 10) // 1;
 ### 소수점 n번째 자리까지 표시하기
 
 개발을 하다보면 숫자형을 유지한채 소수점 n번째 자리까지만 소수점을 표시해야 하는 경우가 있는데,<br>
-이때 ```Math.round```와 ```Math.pow```를 이용하여 처리할 수 있다.
+이때 ```Math.floor```와 ```Math.pow```를 이용하여 처리할 수 있다.
 
 ```javascript
 
 function truncateDecimalUntilLimit(number, limit) {
     var rounded = Math.pow(10, limit);
     
-    return Math.round(number * rounded) / rounded;
+    return Math.floor(number * rounded) / rounded;
 }
 
 console.log(truncateDecimalUntilLimit(1.4142, 2)); // 1.41
